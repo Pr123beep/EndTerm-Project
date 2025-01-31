@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Portfolio Tracker</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <!-- FontAwesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <!-- Chart.js for stock trends -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar for branding and quick navigation -->
+        <aside class="sidebar">
+            <h2>📊 Stock Tracker</h2>
+            <ul>
+                <li><a href="#"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+                <li><a href="#"><i class="fas fa-user"></i> Profile</a></li>
+                <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <header>
+                <h1>📈 Real-Time Stock Portfolio</h1>
+                <div class="search-bar">
+                    <input type="text" id="stock-symbol-input" placeholder="Enter stock symbol (e.g., AAPL)">
+                    <button id="add-stock-btn">Add Stock</button>
+                </div>
+            </header>
+
+            <section class="portfolio">
+                <h2>My Portfolio</h2>
+                <ul id="stock-list"></ul>
+            </section>
+
+            <section class="chart-container">
+                <canvas id="stock-chart"></canvas>
+            </section>
+
+            <section class="performance-summary">
+                <h2>📊 Performance Summary</h2>
+                <p id="overall-gain-loss">Total Portfolio Value: $0.00</p>
+            </section>
+        </main>
+    </div>
+
+    <script type="module" src="scripts/main.js"></script>
+</body>
+</html>
