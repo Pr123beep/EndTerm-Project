@@ -1,14 +1,14 @@
-import { fetchIntradayData, fetchDailyData } from './api.js';
+
+import { fetchYahooIntradayData } from './api.js';
 import { initChart, updateChart } from './chart.js';
 
-// DOM 
 const stockSymbolInput = document.getElementById('stock-symbol-input');
 const addStockBtn = document.getElementById('add-stock-btn');
 const stockList = document.getElementById('stock-list');
 const chartCanvas = document.getElementById('stock-chart');
 const performanceSummary = document.getElementById('overall-gain-loss');
 
-let portfolio = [];
+let portfolio = []; 
 
 window.addEventListener('DOMContentLoaded', initApp);
 
@@ -29,7 +29,7 @@ async function handleAddStock() {
   const symbol = stockSymbolInput.value.toUpperCase().trim();
   if (!symbol) return;
 
-  const intradayData = await fetchIntradayData(symbol);
+  const intradayData = await fetchYahooIntradayData(symbol);
   if (!intradayData) {
     alert('Could not retrieve data for this symbol. Check the symbol or API limit.');
     return;
@@ -43,16 +43,14 @@ async function handleAddStock() {
 
   addStockItemToDOM(symbol, latestPrice);
   stockSymbolInput.value = '';
-
-
   updateStockChart(symbol);
 }
+
 
 function addStockItemToDOM(symbol, price) {
   const li = document.createElement('li');
   li.textContent = `${symbol}: $${Number(price).toFixed(2)}`;
   
-  // Remove button
   const removeBtn = document.createElement('button');
   removeBtn.textContent = 'Remove';
   removeBtn.addEventListener('click', () => {
@@ -70,8 +68,9 @@ function savePortfolio() {
   localStorage.setItem('portfolio', JSON.stringify(portfolio));
 }
 
+
 async function updateStockChart(symbol) {
-  const intradayData = await fetchIntradayData(symbol);
+  const intradayData = await fetchYahooIntradayData(symbol);
   if (!intradayData) return;
 
   const timeStamps = Object.keys(intradayData).sort();
@@ -89,7 +88,7 @@ async function updateStockChart(symbol) {
 
 setInterval(() => {
   portfolio.forEach(async (stock) => {
-    const intradayData = await fetchIntradayData(stock.symbol);
+    const intradayData = await fetchYahooIntradayData(stock.symbol);
     if (intradayData) {
       const latestTime = Object.keys(intradayData)[0];
       const latestPrice = intradayData[latestTime]['4. close'];
@@ -98,7 +97,7 @@ setInterval(() => {
     }
   });
   savePortfolio();
-}, 50000); 
+}, 60000);
 
 function updatePerformanceSummary() {
   let totalValue = 0;
@@ -108,3 +107,4 @@ function updatePerformanceSummary() {
   
   performanceSummary.textContent = `Total current value: $${totalValue.toFixed(2)}`;
 }
+
