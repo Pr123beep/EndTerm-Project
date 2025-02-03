@@ -1,53 +1,74 @@
-
 const RAPIDAPI_KEY = '59f4badec0msh765f5a26f2c009bp171eafjsn1920ab68bb99';
-const RAPIDAPI_HOST = 'apidojo-yahoo-finance-v1.p.rapidapi.com'; 
+const RAPIDAPI_HOST = 'apidojo-yahoo-finance-v1.p.rapidapi.com';
+
+const NEWSAPI_KEY = 'c6caf300dbf94cf3a6a16b58ba4c7a77';
+const NEWSAPI_URL = 'https://newsapi.org/v2/everything';
 
 
 export async function fetchYahooIntradayData(symbol) {
-  const url = `https://${RAPIDAPI_HOST}/stock/v2/get-chart?interval=5m&symbol=${symbol}&range=1d&region=US`;
+    const url = `https://${RAPIDAPI_HOST}/stock/v2/get-chart?interval=5m&symbol=${symbol}&range=1d&region=US`;
 
-  const options = {
-    method: 'GET',
-    headers: {
-      'X-RapidAPI-Key': RAPIDAPI_KEY,
-      'X-RapidAPI-Host': RAPIDAPI_HOST,
-    },
-  };
+    const options = {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Key': RAPIDAPI_KEY,
+            'X-RapidAPI-Host': RAPIDAPI_HOST,
+        },
+    };
 
-  try {
-    const response = await fetch(url, options);
-    const data = await response.json();
+    try {
+        const response = await fetch(url, options);
+        const data = await response.json();
 
-    if (!data.chart?.result?.[0]) {
-      console.error('Yahoo Finance: No chart data found for', symbol, data);
-      return null;
+        if (!data.chart?.result?.[0]) {
+            console.error('Yahoo Finance: No chart data found for', symbol, data);
+            return null;
+        }
+
+        const result = data.chart.result[0];
+        const timestamps = result.timestamp;
+        const quotes = result.indicators.quote[0].close;
+
+        if (!timestamps || !quotes) {
+            console.error('Yahoo Finance: Missing timestamps/quotes.', symbol, data);
+            return null;
+        }
+
+        const timeSeries = {};
+        for (let i = 0; i < timestamps.length; i++) {
+            const ts = timestamps[i];
+            const price = quotes[i];
+            if (price === null) continue;
+
+            const dateObj = new Date(ts * 1000);
+            const dateStr = dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            timeSeries[dateStr] = { '4. close': price };
+        }
+
+        return timeSeries;
+
+    } catch (error) {
+        console.error('Network/API Error (Yahoo Finance):', error);
+        return null;
     }
-
-    const result = data.chart.result[0];
-    const timestamps = result.timestamp; 
-    const quotes = result.indicators.quote[0].close; 
+}
 
 
-    if (!timestamps || !quotes) {
-      console.error('Yahoo Finance: Missing timestamps/quotes.', symbol, data);
-      return null;
+export async function fetchStockNews(symbol) {
+    const url = `${NEWSAPI_URL}?q=${symbol}&sortBy=publishedAt&apiKey=${NEWSAPI_KEY}`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (data.articles && data.articles.length > 0) {
+            return data.articles.slice(0, 5); 
+        } else {
+            console.warn('No news found for this stock:', symbol);
+            return [];
+        }
+    } catch (error) {
+        console.error('Network/API Error (NewsAPI):', error);
+        return [];
     }
-
-    const timeSeries = {};
-    for (let i = 0; i < timestamps.length; i++) {
-      const ts = timestamps[i];
-      const price = quotes[i];
-      if (price === null) continue; 
-
-      const dateObj = new Date(ts * 1000);
-      const dateStr = dateObj.toLocaleString(); 
-      timeSeries[dateStr] = { '4. close': price };
-    }
-
-    return timeSeries;
-
-  } catch (error) {
-    console.error('Network/API Error (Yahoo Finance):', error);
-    return null;
-  }
 }
