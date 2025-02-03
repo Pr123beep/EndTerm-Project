@@ -54,21 +54,23 @@ export async function fetchYahooIntradayData(symbol) {
 }
 
 
-export async function fetchStockNews(symbol) {
-    const url = `${NEWSAPI_URL}?q=${symbol}&sortBy=publishedAt&apiKey=${NEWSAPI_KEY}`;
+const NEWS_API_URL = 'https://saurav.tech/NewsAPI/top-headlines/category/business/in.json';
 
+
+export async function fetchStockNews() {
     try {
-        const response = await fetch(url);
+        const response = await fetch(NEWS_API_URL);
         const data = await response.json();
 
-        if (data.articles && data.articles.length > 0) {
+        console.log("🔍 News API Response:", data);
+        if (data && data.articles && data.articles.length > 0) {
             return data.articles.slice(0, 5); 
         } else {
-            console.warn('No news found for this stock:', symbol);
+            console.warn('⚠️ No business news found. Check API response.');
             return [];
         }
     } catch (error) {
-        console.error('Network/API Error (NewsAPI):', error);
+        console.error('❌ Network/API Error (Business News):', error);
         return [];
     }
 }

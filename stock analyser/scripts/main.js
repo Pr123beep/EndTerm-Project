@@ -13,18 +13,20 @@ let portfolio = [];
 window.addEventListener('DOMContentLoaded', initApp);
 
 function initApp() {
-    initChart(chartCanvas);
+  initChart(chartCanvas);
 
-    const savedPortfolio = JSON.parse(localStorage.getItem('portfolio')) || [];
-    portfolio = savedPortfolio;
+  const savedPortfolio = JSON.parse(localStorage.getItem('portfolio')) || [];
+  portfolio = savedPortfolio;
 
-    portfolio.forEach((stock) => {
-        addStockItemToDOM(stock.symbol, stock.latestPrice);
-        fetchAndDisplayNews(stock.symbol);
-    });
+  portfolio.forEach((stock) => {
+      addStockItemToDOM(stock.symbol, stock.latestPrice);
+  });
 
-    addStockBtn.addEventListener('click', handleAddStock);
+  fetchAndDisplayNews(); 
+
+  addStockBtn.addEventListener('click', handleAddStock);
 }
+
 
 async function handleAddStock() {
     const symbol = stockSymbolInput.value.toUpperCase().trim();
@@ -107,19 +109,25 @@ function updatePerformanceSummary() {
     performanceSummary.textContent = `Total Portfolio Value: $${totalValue.toFixed(2)}`;
 }
 
-async function fetchAndDisplayNews(symbol) {
-    const newsArticles = await fetchStockNews(symbol);
-    if (!newsContainer) return;
+async function fetchAndDisplayNews() {
+  const newsArticles = await fetchStockNews();
+  if (!newsContainer) return;
 
-    newsContainer.innerHTML = ''; 
-    newsArticles.forEach(article => {
-        const newsItem = document.createElement('div');
-        newsItem.classList.add('news-item');
-        newsItem.innerHTML = `
-            <h4>${article.title}</h4>
-            <p>${article.description || 'No description available.'}</p>
-            <a href="${article.url}" target="_blank">Read More</a>
-        `;
-        newsContainer.appendChild(newsItem);
-    });
+  newsContainer.innerHTML = ''; 
+
+  if (newsArticles.length === 0) {
+      newsContainer.innerHTML = `<p>No business news available at the moment.</p>`;
+      return;
+  }
+
+  newsArticles.forEach(article => {
+      const newsItem = document.createElement('div');
+      newsItem.classList.add('news-item');
+      newsItem.innerHTML = `
+          <h4>${article.title}</h4>
+          <p>${article.description || 'No description available.'}</p>
+          <a href="${article.url}" target="_blank">Read More</a>
+      `;
+      newsContainer.appendChild(newsItem);
+  });
 }
