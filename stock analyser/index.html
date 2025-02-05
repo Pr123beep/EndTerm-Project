@@ -1,54 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STOCKO PORTFOLIOKO</title>
-    <link rel="stylesheet" href="styles/style.css">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>STOCKO PORTFOLIOKO</title>
+  <link rel="stylesheet" href="styles/style.css" />
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div class="container">
-        <nav class="navbar">
-            <h2>💹 STOCKO PORTFOLIOKO</h2>
-            <ul>
-                <li><a href="#news-container"><i class="fas fa-newspaper"></i> News</a></li>
-                <li><a href="#"><i class="fas fa-chart-line"></i> Dashboard</a></li>
-                <li><a href="#"><i class="fas fa-user"></i> Profile</a></li>
-                <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
-            </ul>
-        </nav>
+  <div class="container">
+    <nav class="navbar">
+      <h2>💹 STOCKO PORTFOLIOKO</h2>
+      <ul>
+        <!-- Updated links with data-page attributes for page switching -->
+        <li><a href="#" data-page="dashboard-page"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+        <li><a href="#" data-page="profile-page"><i class="fas fa-user"></i> Profile</a></li>
+        <li><a href="#" data-page="settings-page"><i class="fas fa-cog"></i> Settings</a></li>
+        <!-- You can keep the News link if you want it to scroll within dashboard -->
+        <li><a href="#news-container"><i class="fas fa-newspaper"></i> News</a></li>
+      </ul>
+    </nav>
 
-        <main class="content">
-            <header>
-                <h1>💹 MarketVision: Live Insights</h1>
-                <div class="search-bar">
-                    <input type="text" id="stock-symbol-input" placeholder="Enter stock symbol (e.g., AAPL)">
-                    <button id="add-stock-btn">Add Stock</button>
-                </div>
-            </header>
+    <main class="content">
+      <!-- Dashboard Page (existing homepage content) -->
+      <div id="dashboard-page">
+        <header>
+          <h1>💹 MarketVision: Live Insights</h1>
+          <div class="search-bar">
+            <input type="text" id="stock-symbol-input" placeholder="Enter stock symbol (e.g., AAPL)" />
+            <button id="add-stock-btn">Add Stock</button>
+          </div>
+        </header>
 
-            <section class="portfolio">
-                <h2>My Portfolio</h2>
-                <ul id="stock-list"></ul>
-            </section>
+        <section class="portfolio">
+          <h2>My Portfolio</h2>
+          <ul id="stock-list"></ul>
+        </section>
 
-            <section class="chart-container">
-                <canvas id="stock-chart"></canvas>
-            </section>
+        <section class="chart-container">
+          <canvas id="stock-chart"></canvas>
+        </section>
 
-            <section class="performance-summary">
-                <h2>💹 Performance Summary</h2>
-                <p id="overall-gain-loss">Total Portfolio Value: $0.00</p>
-            </section>
+        <section class="performance-summary">
+          <h2>💹 Performance Summary</h2>
+          <p id="overall-gain-loss">Total Portfolio Value: $0.00</p>
+        </section>
 
-            <section class="news-container" id="news-container" >
-                <h2>📰 Latest Stock News</h2>
-            </section>
-        </main>
-    </div>
+        <section class="news-container" id="news-container">
+          <h2>📰 Latest Stock News</h2>
+        </section>
+      </div>
 
-    <script type="module" src="scripts/main.js"></script>
+      <!-- Profile Page (new) -->
+      <div id="profile-page" style="display: none;">
+        <h1>Profile</h1>
+        <p>Stock Data</p>
+        <div class="search-bar">
+          <input type="text" id="alpha-stock-input" placeholder="Enter stock symbol (e.g., AAPL)" />
+          <button id="fetch-alpha-btn">Fetch Data</button>
+          <button id="fetch-profile-btn">Fetch Company Profile</button>
+        
+        </div>
+        <div id="alpha-vantage-data">
+          <!-- Fetched data will appear here -->
+        </div>
+      </div>
+
+      <!-- Settings Page (new) -->
+      <div id="settings-page" style="display: none;">
+        <h1>Settings</h1>
+        <p></p>
+        <!-- You can add interactive settings options as needed -->
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="scripts/main.js"></script>
 </body>
 </html>
