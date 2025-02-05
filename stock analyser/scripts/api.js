@@ -1,4 +1,4 @@
-const RAPIDAPI_KEY = '52ff8eda21mshfd9c1424ba5e768p1ce072jsnf195';
+const RAPIDAPI_KEY = '52ff8eda21mshfd9c1424ba5e768p1ce072jsnf195049f1b4f';
 const RAPIDAPI_HOST = 'apidojo-yahoo-finance-v1.p.rapidapi.com';
 
 const NEWSAPI_KEY = 'c6caf300dbf94cf3a6a16b58ba4c7a77';
