@@ -1,4 +1,3 @@
-// =================== Existing Code ===================
 
 import { fetchYahooIntradayData, fetchStockNews } from './api.js';
 import { initChart, updateChart } from './chart.js';
@@ -29,10 +28,8 @@ function initApp() {
 
   addStockBtn.addEventListener('click', handleAddStock);
 
-  // Initialize page navigation event listeners
   initPageNavigation();
 
-  // Initialize Finnhub fetch for Profile page (replacing Alpha Vantage)
   initFinnhubFetch();
 }
 
@@ -140,7 +137,6 @@ async function fetchAndDisplayNews() {
   });
 }
 
-// =================== New Code for Page Navigation ===================
 function initPageNavigation() {
     const navLinks = document.querySelectorAll('.navbar a[data-page]');
     navLinks.forEach((link) => {

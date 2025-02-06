@@ -218,17 +218,11 @@ header {
     text-decoration: underline;
 }
 
-
-/* Existing CSS … */
-
-/* (Optional) Add common styling for the new page containers */
 #dashboard-page,
 #profile-page,
 #settings-page {
   animation: fadeIn 0.5s ease-in-out;
 }
-
-/* You can add more styling for your Profile page elements if needed */
 #alpha-vantage-data {
   margin-top: 20px;
   background: #0f3460;

@@ -1,8 +1,6 @@
-// Replace 'YOUR_FINNHUB_API_KEY' with your actual Finnhub API key.
 const FINNHUB_API_KEY = 'cuhfj49r01qva71tmf4gcuhfj49r01qva71tmf50';
 
 export function initFinnhubFetch() {
-  // Event listener for fetching quote data
   const finnhubBtn = document.getElementById('fetch-alpha-btn');
   if (finnhubBtn) {
     finnhubBtn.addEventListener('click', async () => {
@@ -15,7 +13,6 @@ export function initFinnhubFetch() {
     });
   }
 
-  // Event listener for fetching company profile data
   const profileBtn = document.getElementById('fetch-profile-btn');
   if (profileBtn) {
     profileBtn.addEventListener('click', async () => {
@@ -50,18 +47,16 @@ async function fetchFinnhubQuote(symbol) {
 
 function displayFinnhubQuote(symbol, quoteData) {
   const container = document.getElementById('alpha-vantage-data');
-  container.innerHTML = ''; // Clear previous results
+  container.innerHTML = '';
   if (!quoteData) {
     container.innerHTML = `<p>No quote data available for ${symbol}.</p>`;
     return;
   }
 
-  // Create a table to display key quote information
   const table = document.createElement('table');
   table.style.width = '100%';
   table.style.borderCollapse = 'collapse';
 
-  // Table header
   const header = document.createElement('tr');
   ['Metric', 'Value'].forEach((text) => {
     const th = document.createElement('th');
@@ -72,7 +67,6 @@ function displayFinnhubQuote(symbol, quoteData) {
   });
   table.appendChild(header);
 
-  // Prepare data rows: Finnhub quote fields
   const rows = [
     ['Current Price', quoteData.c],
     ['High Price', quoteData.h],
@@ -117,13 +111,12 @@ async function fetchCompanyProfile(symbol) {
 
 function displayCompanyProfile(symbol, profileData) {
   const container = document.getElementById('alpha-vantage-data');
-  container.innerHTML = ''; // Clear previous results
+  container.innerHTML = ''; 
   if (!profileData) {
     container.innerHTML = `<p>No profile data available for ${symbol}.</p>`;
     return;
   }
 
-  // Create HTML markup to display company profile data
   const profileHTML = `
     <h3>${profileData.name} (${symbol})</h3>
     <img src="${profileData.logo}" alt="${profileData.name} Logo" style="width:100px;" />
