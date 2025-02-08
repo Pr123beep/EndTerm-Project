@@ -1,3 +1,5 @@
+
+
 const FINNHUB_API_KEY = 'cuhfj49r01qva71tmf4gcuhfj49r01qva71tmf50';
 
 export function initFinnhubFetch() {
@@ -7,7 +9,7 @@ export function initFinnhubFetch() {
       const symbolInput = document.getElementById('alpha-stock-input');
       const symbol = symbolInput.value.toUpperCase().trim();
       if (!symbol) return;
-  
+
       const data = await fetchFinnhubQuote(symbol);
       displayFinnhubQuote(symbol, data);
     });
@@ -19,7 +21,7 @@ export function initFinnhubFetch() {
       const symbolInput = document.getElementById('alpha-stock-input');
       const symbol = symbolInput.value.toUpperCase().trim();
       if (!symbol) return;
-  
+
       const profileData = await fetchCompanyProfile(symbol);
       displayCompanyProfile(symbol, profileData);
     });
@@ -77,9 +79,13 @@ function displayFinnhubQuote(symbol, quoteData) {
 
   rows.forEach((rowData) => {
     const row = document.createElement('tr');
-    rowData.forEach((val) => {
+    rowData.forEach((val, idx) => {
       const td = document.createElement('td');
-      td.textContent = Number(val) ? Number(val).toFixed(2) : val;
+      if (idx === 1 && !isNaN(val)) {
+        td.textContent = Number(val).toFixed(2);
+      } else {
+        td.textContent = val;
+      }
       td.style.border = '1px solid #ccc';
       td.style.padding = '8px';
       row.appendChild(td);
@@ -111,7 +117,7 @@ async function fetchCompanyProfile(symbol) {
 
 function displayCompanyProfile(symbol, profileData) {
   const container = document.getElementById('alpha-vantage-data');
-  container.innerHTML = ''; 
+  container.innerHTML = '';
   if (!profileData) {
     container.innerHTML = `<p>No profile data available for ${symbol}.</p>`;
     return;

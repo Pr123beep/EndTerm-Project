@@ -2,23 +2,38 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>STOCKO PORTFOLIOKO</title>
-  <link rel="stylesheet" href="styles/style.css" />
+  
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link rel="stylesheet" href="styles/style.css" />
 </head>
 <body>
+
+  <div id="welcome-screen">
+    <div class="welcome-content">
+      <h1>Welcome to STOCKO PORTFOLIOKO!</h1>
+      <p class="welcome-subtitle">Fetching Live Data...</p>
+      
+    </div>
+  </div>
   <div class="container">
     <nav class="navbar">
       <h2>💹 STOCKO PORTFOLIOKO</h2>
       <ul>
-
         <li><a href="#" data-page="dashboard-page"><i class="fas fa-chart-line"></i> Dashboard</a></li>
         <li><a href="#news-container"><i class="fas fa-newspaper"></i> News</a></li>
-        <li><a href="#" data-page="profile-page"><i class="fas fa-user"></i>Stock Profile</a></li>
-        
+        <li><a href="#" data-page="profile-page"><i class="fas fa-user"></i> Stock Profile</a></li>
       </ul>
+      <div class="theme-toggle">
+        <span id="toggle-label">Dark Mode</span>
+        <label class="switch">
+          <input type="checkbox" id="theme-switch">
+          <span class="slider round"></span>
+        </label>
+      </div>
     </nav>
 
     <main class="content">
@@ -43,6 +58,7 @@
         <section class="performance-summary">
           <h2>💹 Performance Summary</h2>
           <p id="overall-gain-loss">Total Portfolio Value: $0.00</p>
+          <p id="overall-pl">Profit/Loss: $0.00</p>
         </section>
 
         <section class="news-container" id="news-container">
@@ -51,20 +67,31 @@
       </div>
 
       <div id="profile-page" style="display: none;">
-        <h1>Profile</h1>
-        <p>Stock Data</p>
+        <h1>Stock Profile</h1>
+        <p>Fetch real-time data & company profile.</p>
         <div class="search-bar">
           <input type="text" id="alpha-stock-input" placeholder="Enter stock symbol (e.g., AAPL)" />
           <button id="fetch-alpha-btn">Fetch Data</button>
           <button id="fetch-profile-btn">Fetch Company Profile</button>
-        
         </div>
-        <div id="alpha-vantage-data">
-        </div>
+        <div id="alpha-vantage-data"></div>
       </div>
-
-      
+    </main>
+  </div>
 
   <script type="module" src="scripts/main.js"></script>
+
+  <script>
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const welcomeScreen = document.getElementById('welcome-screen');
+        welcomeScreen.classList.add('fade-out'); 
+        setTimeout(() => {
+          welcomeScreen.style.display = 'none';
+        }, 800); 
+      }, 1000);
+    });
+  </script>
+
 </body>
 </html>

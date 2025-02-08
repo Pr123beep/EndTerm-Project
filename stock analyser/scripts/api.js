@@ -1,9 +1,10 @@
-const RAPIDAPI_KEY = '52ff8eda21mshfd9c1424ba5e768p1ce072jsnf195049f1b4f';
+
+
+const RAPIDAPI_KEY = '47f8166344msh01d3e2a14a86f6dp1df103jsnc00ce27f4276';
 const RAPIDAPI_HOST = 'apidojo-yahoo-finance-v1.p.rapidapi.com';
 
 const NEWSAPI_KEY = 'c6caf300dbf94cf3a6a16b58ba4c7a77';
 const NEWSAPI_URL = 'https://newsapi.org/v2/everything';
-
 
 export async function fetchYahooIntradayData(symbol) {
     const url = `https://${RAPIDAPI_HOST}/stock/v2/get-chart?interval=5m&symbol=${symbol}&range=1d&region=US`;
@@ -41,6 +42,7 @@ export async function fetchYahooIntradayData(symbol) {
             if (price === null) continue;
 
             const dateObj = new Date(ts * 1000);
+            // --> HH:MM format
             const dateStr = dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             timeSeries[dateStr] = { '4. close': price };
         }
@@ -53,9 +55,7 @@ export async function fetchYahooIntradayData(symbol) {
     }
 }
 
-
 const NEWS_API_URL = 'https://saurav.tech/NewsAPI/top-headlines/category/business/in.json';
-
 
 export async function fetchStockNews() {
     try {
@@ -64,7 +64,7 @@ export async function fetchStockNews() {
 
         console.log("🔍 News API Response:", data);
         if (data && data.articles && data.articles.length > 0) {
-            return data.articles.slice(0, 5); 
+            return data.articles.slice(0, 5);
         } else {
             console.warn('⚠️ No business news found. Check API response.');
             return [];
