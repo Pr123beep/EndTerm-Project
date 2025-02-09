@@ -38,19 +38,22 @@ function setupNavigation() {
   const profilePage = document.getElementById('profile-page');
 
   navLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      const page = link.getAttribute('data-page');
-      if (page === 'dashboard-page') {
-        dashboardPage.style.display = 'block';
-        profilePage.style.display = 'none';
-      } else if (page === 'profile-page') {
-        dashboardPage.style.display = 'none';
-        profilePage.style.display = 'block';
-      }
-    });
+    if (link.hasAttribute('data-page')) {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const page = link.getAttribute('data-page');
+        if (page === 'dashboard-page') {
+          dashboardPage.style.display = 'block';
+          profilePage.style.display = 'none';
+        } else if (page === 'profile-page') {
+          dashboardPage.style.display = 'none';
+          profilePage.style.display = 'block';
+        }
+      });
+    }
   });
 }
+
 
 async function addStockToPortfolio() {
   const symbolInput = document.getElementById('stock-symbol-input');
