@@ -93,7 +93,8 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 For any questions, suggestions, or feedback, please reach out:
 
-- **Your Name:** Pratham Jain  
+- **Your Name:** Pratham Jain
+- **Your Gmail:** itsprathamj5@gmail.com  
 - **GitHub:** [@Pr123beep](https://github.com/Pr123beep)
 
 Happy Investing! 🚀
