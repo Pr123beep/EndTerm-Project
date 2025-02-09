@@ -93,7 +93,7 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 For any questions, suggestions, or feedback, please reach out:
 
-- **Your Name:** your.email@example.com  
-- **GitHub:** [@yourusername](https://github.com/yourusername)
+- **Your Name:** Pratham Jain  
+- **GitHub:** [@Pr123beep](https://github.com/Pr123beep)
 
 Happy Investing! 🚀
