@@ -67,7 +67,7 @@ To run this project locally, follow these steps:
 1. **Clone the Repository:**
 
    ```bash
-   git clone https://github.com/yourusername/stock-analyzer-app.git
+   git clone https://github.com/yourusername/stock-analyzer.git
    cd stock-analyzer-app
    ```
 
